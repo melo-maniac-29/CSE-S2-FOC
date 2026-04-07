@@ -24,9 +24,10 @@ form.addEventListener('submit', (e) => {
         messages.push('Password must be less than 20 characters');
     }
 
-    // Check if the password is 'password'
-    if (password.value === 'password') {
-        messages.push('Password cannot be "password"');
+    // Check for weak password patterns
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,20}$/;
+    if (!passwordPattern.test(password.value)) {
+        messages.push('Password must include uppercase, lowercase, number, and special character');
     }
 
     // If there are any error messages, prevent form submission and display the errors
@@ -45,5 +46,5 @@ form.addEventListener('submit', (e) => {
 // 4. Checks if the name input is empty.
 // 5. Checks if the password is too short (less than 6 characters).
 // 6. Checks if the password is too long (more than 20 characters).
-// 7. Checks if the password is exactly "password".
+// 7. Checks if the password meets complexity requirements: at least one uppercase, one lowercase, one number, and one special character.
 // 8. If there are any error messages, prevents form submission and displays the errors in the `errorElement`.
